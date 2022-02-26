@@ -18,37 +18,32 @@ pub enum Dir {
     RIGHT,
 }
 
-const SNAKE_VITALS: Vitals = Vitals {
-    apiversion: "1",
-    author: "Dan Walker",
-    color: "#cccccc",
-    head: "default",
-    tail: "default",
-    version: "0.0.1",
-};
-
 pub trait Webhooks {
-    fn get(&self) -> &Vitals {
-        &SNAKE_VITALS
-    }
-
     fn start(&self);
-    fn r#move(&self);
+    fn r#move(&self) -> Dir;
     fn end(&self);
 }
 
-mod starter {
-    use super::Webhooks;
-    use crate::api::Game;
+pub const SNAKE_VITALS: Vitals = Vitals {
+    apiversion: "1",
+    author: "Dan Walker",
+    color: "#E80978",
+    head: "default",
+    tail: "curled",
+    version: "0.0.1",
+};
 
-    struct Starter(Game);
+pub mod starter {
+    use super::{Dir, Webhooks};
+
+    pub struct Starter;
 
     impl Webhooks for Starter {
         fn start(&self) {
             todo!()
         }
 
-        fn r#move(&self) {
+        fn r#move(&self) -> Dir {
             todo!()
         }
 

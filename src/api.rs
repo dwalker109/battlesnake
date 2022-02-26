@@ -1,8 +1,8 @@
 use serde::Deserialize;
 
 #[derive(Deserialize)]
-pub(crate) struct Game {
-    id: String,
+pub struct Game {
+    pub id: String,
     ruleset: Ruleset,
     timeout: u32,
     source: String,
@@ -39,7 +39,7 @@ struct RulesetSquadSettings {
 }
 
 #[derive(Deserialize)]
-struct Battlesnake {
+pub struct Battlesnake {
     id: String,
     name: String,
     health: u32,
@@ -60,7 +60,7 @@ struct BattlesnakeCustomizations {
 }
 
 #[derive(Deserialize)]
-struct Board {
+pub struct Board {
     height: u32,
     width: u32,
     food: Vec<Coords>,
