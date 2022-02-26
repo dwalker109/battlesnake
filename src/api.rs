@@ -1,16 +1,21 @@
-struct Game {
+use serde::Deserialize;
+
+#[derive(Deserialize)]
+pub(crate) struct Game {
     id: String,
     ruleset: Ruleset,
     timeout: u32,
     source: String,
 }
 
+#[derive(Deserialize)]
 struct Ruleset {
     name: String,
     version: String,
     settings: RulesetSettings,
 }
 
+#[derive(Deserialize)]
 struct RulesetSettings {
     food_spawn_chance: u32,
     minimum_food: u32,
@@ -20,10 +25,12 @@ struct RulesetSettings {
     squas: RulesetSquadSettings,
 }
 
+#[derive(Deserialize)]
 struct RulesetRoyaleSettings {
     shrink_every_n_turns: u32,
 }
 
+#[derive(Deserialize)]
 struct RulesetSquadSettings {
     allow_body_collisions: bool,
     shared_elimination: bool,
@@ -31,6 +38,7 @@ struct RulesetSquadSettings {
     shared_length: bool,
 }
 
+#[derive(Deserialize)]
 struct Battlesnake {
     id: String,
     name: String,
@@ -44,12 +52,14 @@ struct Battlesnake {
     customizations: BattlesnakeCustomizations,
 }
 
+#[derive(Deserialize)]
 struct BattlesnakeCustomizations {
     color: String,
     head: String,
     tail: String,
 }
 
+#[derive(Deserialize)]
 struct Board {
     height: u32,
     width: u32,
@@ -58,8 +68,8 @@ struct Board {
     snakes: Vec<Battlesnake>,
 }
 
+#[derive(Deserialize)]
 struct Coords {
     x: u32,
     y: u32,
 }
-

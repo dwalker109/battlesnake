@@ -1,3 +1,6 @@
+use serde::Serialize;
+
+#[derive(Serialize)]
 pub struct Vitals {
     apiversion: &'static str,
     author: &'static str,
@@ -5,6 +8,14 @@ pub struct Vitals {
     head: &'static str,
     tail: &'static str,
     version: &'static str,
+}
+
+#[derive(Serialize)]
+pub enum Dir {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
 }
 
 const SNAKE_VITALS: Vitals = Vitals {
@@ -21,9 +32,9 @@ pub trait Webhooks {
         &SNAKE_VITALS
     }
 
-    fn start();
-    fn r#move();
-    fn end();
+    fn start(&self);
+    fn r#move(&self);
+    fn end(&self);
 }
 
 mod starter {
@@ -33,17 +44,16 @@ mod starter {
     struct Starter(Game);
 
     impl Webhooks for Starter {
-        fn start() {
+        fn start(&self) {
             todo!()
         }
 
-        fn r#move() {
+        fn r#move(&self) {
             todo!()
         }
 
-        fn end() {
+        fn end(&self) {
             todo!()
         }
     }
 }
-
