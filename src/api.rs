@@ -1,4 +1,37 @@
-use serde::Deserialize;
+use crate::snake::Dir;
+use serde::{Deserialize, Serialize};
+
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct Payload {
+    pub game: Game,
+    turn: u32,
+    board: Board,
+    pub you: Battlesnake,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GetResponse {
+    pub apiversion: &'static str,
+    pub author: &'static str,
+    pub color: &'static str,
+    pub head: &'static str,
+    pub tail: &'static str,
+    pub version: &'static str,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct MoveResponse {
+    r#move: Dir,
+}
+
+impl From<Dir> for MoveResponse {
+    fn from(dir: Dir) -> Self {
+        Self { r#move: dir }
+    }
+}
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -47,7 +80,7 @@ struct RulesetSquadSettings {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Battlesnake {
-    id: String,
+    pub id: String,
     name: String,
     health: u32,
     body: Vec<Coords>,
