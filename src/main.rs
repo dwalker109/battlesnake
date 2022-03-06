@@ -4,7 +4,7 @@ use std::{
 };
 
 use axum::{
-    extract::{Extension, Json},
+    extract::{rejection::JsonRejection, Extension, Json},
     response::IntoResponse,
     routing::{get, post},
     AddExtensionLayer, Router,
@@ -16,13 +16,16 @@ use battlesnake_server::{
 };
 use serde::Deserialize;
 use serde_json::json;
+use tracing::{debug, info};
 
 type SnakeMap = HashMap<String, Box<dyn Webhooks + Send + Sync>>;
 type SharedSnakeMap = Arc<RwLock<SnakeMap>>;
 
 #[tokio::main]
 async fn main() {
-    let mut games: SnakeMap = HashMap::new();
+    tracing_subscriber::fmt::init();
+
+    let games: SnakeMap = HashMap::new();
 
     let app = Router::new()
         .route("/", get(handle_get))
@@ -37,7 +40,8 @@ async fn main() {
         .expect("server is running");
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct Payload {
     game: Game,
     turn: u32,
@@ -53,6 +57,8 @@ async fn handle_start(
     Extension(games): Extension<SharedSnakeMap>,
     Json(payload): Json<Payload>,
 ) -> impl IntoResponse {
+    debug!("hit start");
+    debug!("{:?}", payload);
     let snake = snake::starter::Starter;
     games
         .write()

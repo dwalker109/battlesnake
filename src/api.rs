@@ -1,6 +1,7 @@
 use serde::Deserialize;
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Game {
     pub id: String,
     ruleset: Ruleset,
@@ -8,29 +9,34 @@ pub struct Game {
     source: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct Ruleset {
     name: String,
     version: String,
     settings: RulesetSettings,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct RulesetSettings {
     food_spawn_chance: u32,
     minimum_food: u32,
     hazard_damage_per_turn: u32,
-    map: String,
+    hazard_map: String,
+    hazard_map_author: String,
     royale: RulesetRoyaleSettings,
-    squas: RulesetSquadSettings,
+    squad: RulesetSquadSettings,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct RulesetRoyaleSettings {
     shrink_every_n_turns: u32,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct RulesetSquadSettings {
     allow_body_collisions: bool,
     shared_elimination: bool,
@@ -38,7 +44,8 @@ struct RulesetSquadSettings {
     shared_length: bool,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Battlesnake {
     id: String,
     name: String,
@@ -52,14 +59,16 @@ pub struct Battlesnake {
     customizations: BattlesnakeCustomizations,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct BattlesnakeCustomizations {
     color: String,
     head: String,
     tail: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Board {
     height: u32,
     width: u32,
@@ -68,7 +77,8 @@ pub struct Board {
     snakes: Vec<Battlesnake>,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct Coords {
     x: u32,
     y: u32,
